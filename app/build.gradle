@@ -7,7 +7,7 @@ android {
     compileSdk 31
 
     defaultConfig {
-        applicationId "com.ifyezedev.cps251_recyclerview"
+        applicationId "com.ifyezedev.cps251_recyclerviewIntent"
         minSdk 21
         targetSdk 31
         versionCode 1

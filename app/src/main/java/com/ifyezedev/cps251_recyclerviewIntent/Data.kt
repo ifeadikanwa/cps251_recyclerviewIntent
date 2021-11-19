@@ -1,4 +1,4 @@
-package com.ifyezedev.cps251_recyclerview
+package com.ifyezedev.cps251_recyclerviewIntent
 
 class Data {
 

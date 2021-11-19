@@ -1,4 +1,4 @@
-package com.ifyezedev.cps251_recyclerview
+package com.ifyezedev.cps251_recyclerviewIntent
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,8 +7,12 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class RecyclerviewAdapter(val titles: List<String>, val details: List<String>, val images: List<Int>):
-    RecyclerView.Adapter<RecyclerviewAdapter.ViewHolder>() {
+class RecyclerviewAdapter(private val titles: List<String>,
+                          private val details: List<String>,
+                          private val images: List<Int>,
+                          private val onItemClicked: (position: Int) -> Unit
+): RecyclerView.Adapter<RecyclerviewAdapter.ViewHolder>() {
+
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -17,7 +21,7 @@ class RecyclerviewAdapter(val titles: List<String>, val details: List<String>, v
         val v = LayoutInflater.from(parent.context)
             .inflate(R.layout.list_item_view, parent, false)
 
-        return ViewHolder(v)
+        return ViewHolder(v, onItemClicked)
     }
 
     override fun onBindViewHolder(holder: RecyclerviewAdapter.ViewHolder, position: Int) {
@@ -30,15 +34,23 @@ class RecyclerviewAdapter(val titles: List<String>, val details: List<String>, v
         return titles.size
     }
 
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class ViewHolder(itemView: View, private val onItemClicked: (position: Int) -> Unit)
+        : RecyclerView.ViewHolder(itemView), View.OnClickListener {
+
         var itemImage: ImageView
         var itemTitle: TextView
         var itemDetail: TextView
 
         init {
+            itemView.setOnClickListener(this)
             itemImage = itemView.findViewById(R.id.imageView)
             itemTitle = itemView.findViewById(R.id.chapterTextView)
             itemDetail = itemView.findViewById(R.id.detailsTextView)
+        }
+
+        override fun onClick(v: View?) {
+           val position = adapterPosition
+            onItemClicked(position)
         }
     }
 }
